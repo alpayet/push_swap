@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:10:05 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/14 22:34:25 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/21 17:40:42 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	fill_manag_duplicates(int nbr, t_stack **stack_a)
 		temp = temp->next;
 	}
 	new_node = lstnew_alt(nbr);
+	new_node->final_index = 0;
 	if (new_node == NULL)
 		process_errors(stack_a);
 	lstadd_back_alt(stack_a, new_node);

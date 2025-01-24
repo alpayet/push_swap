@@ -6,12 +6,27 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 22:08:15 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/14 22:16:53 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:13:12 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <limits.h>
+
+int	stack_size(t_stack *stack)
+{
+	int	i;
+
+	if (stack == NULL)
+		return (0);
+	i = 0;
+	while (stack != NULL)
+	{
+		i++;
+		stack = stack->next;
+	}
+	return (i);
+}
 
 int	ft_abs(int	number)
 {
@@ -129,50 +144,50 @@ int	distance_to_head(t_stack **stack_a_b, int index_nbr)
 	return (index_last - index_nbr + 1);
 }
 
-void fill_tab(int dist_nbr, int dist_max_below_nbr, int rr_rrr_or_not, int *tab)
+void fill_tab(int dist_nbr, int dist_min_above_nbr, int rr_rrr_or_not, int *tab)
 {
-	tab[0] = ft_abs(dist_nbr) + ft_abs(dist_max_below_nbr) + 1;
+	tab[0] = ft_abs(dist_nbr) + ft_abs(dist_min_above_nbr) + 1;
 	tab[1] = dist_nbr;
-	tab[2] = dist_max_below_nbr;
+	tab[2] = dist_min_above_nbr;
 	tab[3] = rr_rrr_or_not;
 }
 
-void same_rules_to_head(int dist_nbr, int dist_max_below_nbr, int *tab)
+void same_rules_to_head(int dist_nbr, int dist_min_above_nbr, int *tab)
 {
-	if (dist_nbr == 0 || dist_max_below_nbr == 0)
-		return(fill_tab(dist_nbr, dist_max_below_nbr, 0, tab));
+	if (dist_nbr == 0 || dist_min_above_nbr == 0)
+		return(fill_tab(dist_nbr, dist_min_above_nbr, 0, tab));
 	if (dist_nbr < 0)
 	{
-		if (dist_nbr < dist_max_below_nbr)
-			return(fill_tab(dist_nbr - dist_max_below_nbr, dist_max_below_nbr, -1, tab));
-		return(fill_tab(dist_nbr, dist_max_below_nbr - dist_nbr, 1, tab));
+		if (dist_nbr < dist_min_above_nbr)
+			return(fill_tab(dist_nbr - dist_min_above_nbr, dist_min_above_nbr, -1, tab));
+		return(fill_tab(dist_nbr, dist_min_above_nbr - dist_nbr, 1, tab));
 	}
-	if (dist_nbr < dist_max_below_nbr)
-		return(fill_tab(dist_nbr, dist_max_below_nbr - dist_nbr, 1, tab));
-	return(fill_tab(dist_nbr - dist_max_below_nbr, dist_max_below_nbr, -1, tab));
+	if (dist_nbr < dist_min_above_nbr)
+		return(fill_tab(dist_nbr, dist_min_above_nbr - dist_nbr, 1, tab));
+	return(fill_tab(dist_nbr - dist_min_above_nbr, dist_min_above_nbr, -1, tab));
 }
 void rules_params(t_stack **stack_a, t_stack **stack_b, int nbr, int *tab)
 {
 	int	index_nbr;
-	int	index_max_below;
+	int	index_min_above;
 	int	dist_nbr;
-	int	dist_max_below_nbr;
+	int	dist_min_above_nbr;
 	int	dist_after_rules;
 
-	index_nbr = find_index(stack_a, nbr);
-	index_max_below = find_index(stack_b, max_below_in_stackb(stack_b, nbr));
-	dist_nbr = distance_to_head(stack_a, index_nbr);
-	dist_max_below_nbr = distance_to_head(stack_b, index_max_below);
-	dist_after_rules = distance_to_head(stack_b, index_max_below + dist_nbr);
-	tab[4] = nbr;
-	if (dist_nbr * dist_max_below_nbr >= 0)
-		return(same_rules_to_head(dist_nbr, dist_max_below_nbr, tab));
-	if (dist_nbr < 0 && ft_abs(dist_max_below_nbr) < ft_abs(dist_after_rules))
-		return(fill_tab(dist_nbr, dist_max_below_nbr, 0, tab));
-	if (dist_nbr < 0 && ft_abs(dist_max_below_nbr) >= ft_abs(dist_after_rules))
+	index_nbr = find_index(stack_b, nbr);
+	index_min_above = find_index(stack_a, min_above_in_stacka(stack_a, nbr));
+	dist_nbr = distance_to_head(stack_b, index_nbr);
+	dist_min_above_nbr = distance_to_head(stack_a, index_min_above);
+	dist_after_rules = distance_to_head(stack_a, index_min_above + dist_nbr);
+	tab[4] = index_min_above;
+	if (dist_nbr * dist_min_above_nbr >= 0)
+		return(same_rules_to_head(dist_nbr, dist_min_above_nbr, tab));
+	if (dist_nbr < 0 && ft_abs(dist_min_above_nbr) < ft_abs(dist_after_rules))
+		return(fill_tab(dist_nbr, dist_min_above_nbr, 0, tab));
+	if (dist_nbr < 0 && ft_abs(dist_min_above_nbr) >= ft_abs(dist_after_rules))
 		return(fill_tab(dist_nbr, dist_after_rules, 1, tab));
-	if (dist_nbr > 0 && ft_abs(dist_max_below_nbr) < ft_abs(dist_after_rules))
-		return(fill_tab(dist_nbr, dist_max_below_nbr, 0, tab));
+	if (dist_nbr > 0 && ft_abs(dist_min_above_nbr) < ft_abs(dist_after_rules))
+		return(fill_tab(dist_nbr, dist_min_above_nbr, 0, tab));
 	return(fill_tab(dist_nbr, dist_after_rules, 1, tab));
 }
 void	several_rr_or_rrr(t_stack **stack_a, t_stack **stack_b, int dist_head)
@@ -245,36 +260,39 @@ void	execute_rules(t_stack **stack_a, t_stack **stack_b, int *rules_for_node)
 	if (rules_for_node[3] == 1)
 	{
 		several_rr_or_rrr(stack_a, stack_b, rules_for_node[1]);
-		several_rb_or_revrb(stack_b, rules_for_node[2]);
+		several_ra_or_revra(stack_a, rules_for_node[2]);
 	}
 	if (rules_for_node[3] == -1)
 	{
 		several_rr_or_rrr(stack_a, stack_b, rules_for_node[2]);
-		several_ra_or_revra(stack_a, rules_for_node[1]);
+		several_rb_or_revrb(stack_b, rules_for_node[1]);
 	}
 	if (rules_for_node[3] == 0)
 	{
-		several_ra_or_revra(stack_a, rules_for_node[1]);
-		several_rb_or_revrb(stack_b, rules_for_node[2]);
+		several_rb_or_revrb(stack_b, rules_for_node[1]);
+		several_ra_or_revra(stack_a, rules_for_node[2]);
 	}
-	push(stack_a, stack_b, "pb\n", 1);
+	push(stack_a, stack_b, "pa\n", 1);
 }
 
 #include <stdio.h>
 
-void	push_almost_all_in_b(t_stack **stack_a, t_stack **stack_b)
+void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*temp;
 	int	buff[5];
 	int	list_of_rules[5];
+	// t_stack	*buff_a;
+	// t_stack	*buff_b;
 
-	temp = *stack_a;
-	if (temp->next->next->next == NULL)
+	if (*stack_b == NULL)
 		return ;
+	temp = *stack_b;
 	buff[0] = 2147483647;
 	while (temp)
 	{
 		rules_params(stack_a, stack_b, temp->number, list_of_rules);
+		// printf("list %d ,%d ,%d ,%d ,%d\n", list_of_rules[0], list_of_rules[1],list_of_rules[2],list_of_rules[3],list_of_rules[4]);
 		if (list_of_rules[0] < buff[0])
 		{
 			buff[0] = list_of_rules[0];
@@ -285,8 +303,21 @@ void	push_almost_all_in_b(t_stack **stack_a, t_stack **stack_b)
 		}
 		temp = temp->next;
 	}
+	// printf("buff %d ,%d ,%d ,%d ,%d\n", buff[0], buff[1],buff[2],buff[3],buff[4]);
 	execute_rules(stack_a, stack_b, buff);
-	push_almost_all_in_b(stack_a, stack_b);
+	// buff_a = *stack_a;
+	// buff_b = *stack_b;
+	// while (buff_a)
+	// {
+	// 	printf("a:%d\n", buff_a->number);
+	// 	buff_a = buff_a->next;
+	// }
+	// while (buff_b)
+	// {
+	// 	printf("b:%d\n", buff_b->number);
+	// 	buff_b = buff_b->next;
+	// }
+	push_back_to_a(stack_a, stack_b);
 }
 void	sort_three_element(t_stack **stack_a)
 {
@@ -313,19 +344,19 @@ void	sort_three_element(t_stack **stack_a)
 	}
 }
 
-void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
-{
-	int	index_min_above;
-	int	dist_min_above_nbr;
+// void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
+// {
+// 	int	index_min_above;
+// 	int	dist_min_above_nbr;
 
-	if (*stack_b == NULL)
-		return ;
-	index_min_above = find_index(stack_a, min_above_in_stacka(stack_a, (*stack_b)->number));
-	dist_min_above_nbr = distance_to_head(stack_a, index_min_above);
-	several_ra_or_revra(stack_a, dist_min_above_nbr);
-	push(stack_a, stack_b, "pa\n", 1);
-	push_back_to_a(stack_a, stack_b);
-}
+// 	if (*stack_b == NULL)
+// 		return ;
+// 	index_min_above = find_index(stack_a, min_above_in_stacka(stack_a, (*stack_b)->number));
+// 	dist_min_above_nbr = distance_to_head(stack_a, index_min_above);
+// 	several_ra_or_revra(stack_a, dist_min_above_nbr);
+// 	push(stack_a, stack_b, "pa\n", 1);
+// 	push_back_to_a(stack_a, stack_b);
+// }
 void	sort_three_or_less(t_stack **stack_a)
 {
 	if (*stack_a == NULL || (*stack_a)->next == NULL)
@@ -342,24 +373,56 @@ void	sort_three_or_less(t_stack **stack_a)
 		exit(0);
 	}
 }
+void	quick_sort_alt(t_stack **stack_a, t_stack **stack_b)
+{
+	int	stacka_size;
+	int	final_index_max;
+	
+	stacka_size = stack_size(*stack_a);
+	final_index_max = stack_size(*stack_a) - 1;
+	while (stacka_size && (*stack_a)->next->next->next != NULL)
+	{
+		if ((*stack_a)->final_index <= (float)final_index_max / 2)
+			push(stack_a, stack_b, "pb\n", 1);
+		else
+			rotate(stack_a, stack_b, "ra\n", 1);
+		stacka_size--;
+	}
+	while ((*stack_a)->next->next->next != NULL)
+		push(stack_a, stack_b, "pb\n", 1);
+}
 void	turk_algorithm(t_stack **stack_a, t_stack **stack_b)
 {
 	int	min_or_max;
 	int	index;
 	int	dist;
+	// t_stack	*buff_a;
+	// t_stack	*buff_b;
 
 	sort_three_or_less(stack_a);
-	if ((*stack_a)->next->next->next->next == NULL)
-		push(stack_a, stack_b, "pb\n", 1);
-	else
- 		push(stack_a, stack_b, "pb\n", 1);
-	push_almost_all_in_b(stack_a, stack_b);
-	min_or_max = max_in_stackb(stack_b);
-	index = find_index(stack_b, min_or_max);
-	dist = distance_to_head(stack_b, index);
-	several_rb_or_revrb(stack_b, dist);
+	quick_sort_alt(stack_a, stack_b);
 	sort_three_element(stack_a);
+	// buff_a = *stack_a;
+	// buff_b = *stack_b;
+	// while (buff_a)
+	// {
+	// 	printf("a:%d\n", buff_a->number);
+	// 	buff_a = buff_a->next;
+	// }
+	// while (buff_b)
+	// {
+	// 	printf("b:%d\n", buff_b->number);
+	// 	buff_b = buff_b->next;
+	// }
 	push_back_to_a(stack_a, stack_b);
+	// // push(stack_a, stack_b, "pb\n", 1);
+	// // if ((*stack_a)->next->next->next->next != NULL)
+ 	// // 	push(stack_a, stack_b, "pb\n", 1);
+	// // push_almost_all_in_b(stack_a, stack_b);
+	// // min_or_max = max_in_stackb(stack_b);
+	// // index = find_index(stack_b, min_or_max);
+	// // dist = distance_to_head(stack_b, index);
+	// // several_rb_or_revrb(stack_b, dist);
 	min_or_max = min_in_stacka(stack_a);
 	index = find_index(stack_a, min_or_max);
 	dist = distance_to_head(stack_a, index);

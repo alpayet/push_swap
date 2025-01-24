@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 19:48:30 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/14 22:15:15 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/22 22:28:57 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct s_stack
 {
 	int	number;
+	int	final_index;
 	struct s_stack	*next;
 }	t_stack;
 
@@ -33,6 +34,9 @@ void	rotate(t_stack **stack_a, t_stack **stack_b, char *ra_rb_rr, int print_or_n
 void	reverse_rotate(t_stack **stack_a, t_stack **stack_b, char *ra_rb_rr, int print_or_not);
 void	turk_algorithm(t_stack **stack_a, t_stack **stack_b);
 void	check_errors_and_file_a(char **argv, t_stack **stack_a);
+int	max_in_stackb(t_stack **stack_b);
+int	stack_size(t_stack *stack);
+void	quick_sort_alt(t_stack **stack_a, t_stack **stack_b);
 
 
 #endif
