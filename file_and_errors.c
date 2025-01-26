@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:10:05 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/21 17:40:42 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/26 22:52:48 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	check_errors_and_file_a(char **argv, t_stack **stack_a)
 	i = 0;
 	while (argv[i])
 	{
-		//gestion des erreurs free les mallocs
 		str_to_long = ft_atol_alt(argv[i], stack_a);
 		if ((str_to_long < -2147483648 || str_to_long > 2147483647)
 			|| (str_to_long == -1 && argv[i][2] != '\0'))

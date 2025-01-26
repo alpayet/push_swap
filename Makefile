@@ -1,7 +1,7 @@
 .PHONY : all lib_libft clean fclean re bonus
 LIBFT_DIR = libft
-SRC = main.c rules.c lst_fonctions.c sort_algorithm.c file_and_errors.c
-SRC_BONUS = main_bonus.c rules.c lst_fonctions.c sort_algorithm.c file_and_errors.c utils_bonus.c
+SRC = main.c stack_fonctions.c execute_rules.c file_and_errors.c math_utils.c rules_params.c rules.c sort_algorithm.c
+SRC_BONUS = main_bonus.c rules.c stack_fonctions.c file_and_errors.c utils_bonus.c
 OBJ = $(SRC:.c=.o)
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 NAME = push_swap

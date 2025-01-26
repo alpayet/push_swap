@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:08:04 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/14 22:20:13 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/26 23:29:12 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	read_and_file_rules(t_stack **stack_a, t_list **rules)
 	}
 }
 
-static void	bad_format(char	*str, t_stack **stack_a, t_list **rules)
+static void	bad_format(char *str, t_stack **stack_a, t_list **rules)
 {
 	if (ft_strncmp(str, "sa\n", 4) != 0
 		&& ft_strncmp(str, "sb\n", 4) != 0
@@ -72,11 +72,11 @@ static void	do_rules(t_stack **stack_a, t_stack **stack_b, char *str)
 	if (ft_strncmp(str, "rr\n", 4) == 0)
 		rotate(stack_a, stack_b, "rr\n", 0);
 	if (ft_strncmp(str, "rra\n", 5) == 0)
-		rotate(stack_a, stack_a, "rra\n", 0);
+		reverse_rotate(stack_a, stack_a, "rra\n", 0);
 	if (ft_strncmp(str, "rrb\n", 5) == 0)
-		rotate(stack_b, stack_b, "rrb\n", 0);
+		reverse_rotate(stack_b, stack_b, "rrb\n", 0);
 	if (ft_strncmp(str, "rrr\n", 5) == 0)
-		rotate(stack_a, stack_b, "rrr\n", 0);
+		reverse_rotate(stack_a, stack_b, "rrr\n", 0);
 }
 
 void	check_format_rules(t_stack **stack_a, t_stack **stack_b, t_list **rules)
@@ -94,24 +94,22 @@ void	check_format_rules(t_stack **stack_a, t_stack **stack_b, t_list **rules)
 	}
 }
 
-void	is_sorted(t_stack **stack_a, t_stack **stack_b)
+void	is_sorted(t_stack *stack_a, t_stack *stack_b)
 {
-	t_stack	*temp;
 
-	if (*stack_b != NULL)
+	if (stack_b != NULL)
 	{
 		ft_putstr_fd("KO\n", 1);
 		return ;
 	}
-	temp = *stack_a;
-	while (temp->next)
+	while (stack_a->next)
 	{
-		if (temp->number > temp->next->number)
+		if (stack_a->number > stack_a->next->number)
 		{
 			ft_putstr_fd("KO\n", 1);
 			return ;
 		}
-		temp = temp->next;
+		stack_a = stack_a->next;
 	}
 	ft_putstr_fd("OK\n", 1);
 }
