@@ -6,27 +6,14 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:27:48 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 22:36:58 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:22:58 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	distance_to_head(t_stack *stack, int index_nbr)
-{
-	int	index_last;
-
-	if (index_nbr <= 0)
-		return (0);
-	index_last = stack_size(stack) - 1;
-	if (index_nbr >= index_last)
-		return (1);
-	if (index_nbr < (float)index_last / 2 + 1)
-		return (-index_nbr);
-	return (index_last - index_nbr + 1);
-}
-
-static void fill_tab(int dist_nbr, int dist_successor, int rr_rrr_or_not, long *tab)
+static void	fill_tab(int dist_nbr, int dist_successor, int rr_rrr_or_not,
+		int *tab)
 {
 	tab[0] = ft_abs(dist_nbr) + ft_abs(dist_successor) + 1;
 	tab[1] = dist_nbr;
@@ -34,55 +21,72 @@ static void fill_tab(int dist_nbr, int dist_successor, int rr_rrr_or_not, long *
 	tab[3] = rr_rrr_or_not;
 }
 
-static void same_rules_to_head(int dist_nbr, int dist_successor, long *tab)
+static void	initialise_data(t_data *data, t_stack *stack_a, t_stack *stack_b,
+		int nbr)
+{
+	data->index_nbr = find_index(stack_b, nbr);
+	data->index_successor = find_index(stack_a, imediate_successor(stack_a,
+				nbr));
+	data->dist_nbr = distance_to_head(stack_b, data->index_nbr);
+	data->dist_successor = distance_to_head(stack_a, data->index_successor);
+	if (ft_abs(data->dist_nbr) <= ft_abs(data->dist_successor))
+		data->dist_after_rules = distance_to_head(stack_a, data->index_successor
+				+ data->dist_nbr);
+	else
+		data->dist_after_rules = distance_to_head(stack_b, data->index_nbr
+				+ data->dist_successor);
+}
+
+static void	same_rules_to_head(int dist_nbr, int dist_successor, int *tab)
 {
 	if (dist_nbr == 0 || dist_successor == 0)
-		return(fill_tab(dist_nbr, dist_successor, 0, tab));
+		return (fill_tab(dist_nbr, dist_successor, 0, tab));
 	if (dist_nbr < 0)
 	{
 		if (dist_nbr < dist_successor)
-			return(fill_tab(dist_nbr - dist_successor, dist_successor, -1, tab));
-		return(fill_tab(dist_nbr, dist_successor - dist_nbr, 1, tab));
+			return (fill_tab(dist_nbr - dist_successor, dist_successor, -1,
+					tab));
+		return (fill_tab(dist_nbr, dist_successor - dist_nbr, 1, tab));
 	}
 	if (dist_nbr < dist_successor)
-		return(fill_tab(dist_nbr, dist_successor - dist_nbr, 1, tab));
-	return(fill_tab(dist_nbr - dist_successor, dist_successor, -1, tab));
+		return (fill_tab(dist_nbr, dist_successor - dist_nbr, 1, tab));
+	return (fill_tab(dist_nbr - dist_successor, dist_successor, -1, tab));
 }
 
-static void rules_params(t_stack *stack_a, t_stack *stack_b, int nbr, long *tab)
+static void	rules_params(t_stack *stack_a, t_stack *stack_b, int nbr, int *tab)
 {
-	int	index_nbr;
-	int	index_successor;
-	int	dist_nbr;
-	int	dist_successor;
-	int	dist_after_rules;
+	t_data	data;
 
-	index_nbr = find_index(stack_b, nbr);
-	index_successor = find_index(stack_a, imediate_successor(stack_a, nbr));
-	dist_nbr = distance_to_head(stack_b, index_nbr);
-	dist_successor = distance_to_head(stack_a, index_successor);
-	dist_after_rules = distance_to_head(stack_a, index_successor + dist_nbr);
-	if (dist_nbr * dist_successor >= 0)
-		return(same_rules_to_head(dist_nbr, dist_successor, tab));
-	if (dist_nbr < 0 && ft_abs(dist_successor) < ft_abs(dist_after_rules))
-		return(fill_tab(dist_nbr, dist_successor, 0, tab));
-	if (dist_nbr < 0 && ft_abs(dist_successor) >= ft_abs(dist_after_rules))
-		return(fill_tab(dist_nbr, dist_after_rules, 1, tab));
-	if (dist_nbr > 0 && ft_abs(dist_successor) < ft_abs(dist_after_rules))
-		return(fill_tab(dist_nbr, dist_successor, 0, tab));
-	return(fill_tab(dist_nbr, dist_after_rules, 1, tab));
+	initialise_data(&data, stack_a, stack_b, nbr);
+	if (data.dist_nbr * data.dist_successor >= 0)
+		return (same_rules_to_head(data.dist_nbr, data.dist_successor, tab));
+	if (ft_abs(data.dist_nbr) <= ft_abs(data.dist_successor))
+	{
+		if (ft_abs(data.dist_successor) < ft_abs(data.dist_after_rules))
+			return (fill_tab(data.dist_nbr, data.dist_successor, 0, tab));
+		if (ft_abs(data.dist_successor) >= ft_abs(data.dist_after_rules))
+			return (fill_tab(data.dist_nbr, data.dist_after_rules, 1, tab));
+	}
+	else
+	{
+		if (ft_abs(data.dist_nbr) < ft_abs(data.dist_after_rules))
+			return (fill_tab(data.dist_nbr, data.dist_successor, 0, tab));
+		if (ft_abs(data.dist_nbr) >= ft_abs(data.dist_after_rules))
+			return (fill_tab(data.dist_after_rules, data.dist_successor, -1,
+					tab));
+	}
 }
 
 void	push_back_to_a(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*temp;
-	long	buff[5];
-	long	list_of_rules[5];
+	int		buff[5];
+	int		list_of_rules[5];
 
 	if (*stack_b == NULL)
 		return ;
 	temp = *stack_b;
-	buff[0] = __LONG_MAX__;
+	buff[0] = INT_MAX;
 	while (temp)
 	{
 		rules_params(*stack_a, *stack_b, temp->number, list_of_rules);

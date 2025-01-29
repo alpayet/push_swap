@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 22:18:05 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 23:08:35 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:49:47 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	rules = NULL;
 	read_and_file_rules(&stack_a, &rules);
 	check_format_rules(&stack_a, &stack_b, &rules);
-	is_sorted(stack_a, stack_b);
+	is_sorted_bonus(stack_a, stack_b);
 	ft_lstclear(&rules, free);
 	lstclear_alt(&stack_a);
 	lstclear_alt(&stack_b);

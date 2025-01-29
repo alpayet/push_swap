@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:24:28 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 22:44:06 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:23:07 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	several_rr_or_rrr(t_stack **stack_a, t_stack **stack_b, int dist_head)
 	}
 }
 
-void	execute_rules(t_stack **stack_a, t_stack **stack_b, long *rules_for_node)
+void	execute_rules(t_stack **stack_a, t_stack **stack_b, int *rules_for_node)
 {
 	if (rules_for_node[3] == 1)
 	{

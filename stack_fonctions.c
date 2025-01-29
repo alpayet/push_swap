@@ -6,12 +6,11 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 19:24:09 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 22:21:47 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:18:58 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 t_stack	*lstnew_alt(int number)
 {
@@ -67,7 +66,3 @@ void	lstadd_back_alt(t_stack **lst, t_stack *new)
 	}
 	lstlast_alt(*lst)->next = new;
 }
-
-
-
-

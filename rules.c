@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:17:07 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 23:45:57 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:17:26 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	putstr_or_exit(t_stack **stack_a, t_stack **stack_b, char *str)
 		exit(1);
 	}
 }
-void	swap(t_stack **stack_a, t_stack **stack_b, char *sa_sb, int print_or_not)
+
+void	swap(t_stack **stack_a, t_stack **stack_b, char *sa_sb,
+		int print_or_not)
 {
 	t_stack	*temp;
 
@@ -42,7 +44,8 @@ void	swap(t_stack **stack_a, t_stack **stack_b, char *sa_sb, int print_or_not)
 		putstr_or_exit(stack_a, stack_b, sa_sb);
 }
 
-void	push(t_stack **stack_a, t_stack **stack_b, char *pa_pb, int print_or_not)
+void	push(t_stack **stack_a, t_stack **stack_b, char *pa_pb,
+		int print_or_not)
 {
 	t_stack	*temp;
 
@@ -60,10 +63,10 @@ void	push(t_stack **stack_a, t_stack **stack_b, char *pa_pb, int print_or_not)
 	}
 	if (print_or_not == 1)
 		putstr_or_exit(stack_a, stack_b, pa_pb);
-
 }
 
-void	rotate(t_stack **stack_a, t_stack **stack_b, char *ra_rb_rr, int print_or_not)
+void	rotate(t_stack **stack_a, t_stack **stack_b, char *ra_rb_rr,
+		int print_or_not)
 {
 	t_stack	*temp;
 
@@ -85,7 +88,8 @@ void	rotate(t_stack **stack_a, t_stack **stack_b, char *ra_rb_rr, int print_or_n
 		putstr_or_exit(stack_a, stack_b, ra_rb_rr);
 }
 
-void	reverse_rotate(t_stack **stack_a, t_stack **stack_b, char *ra_rb_rr, int print_or_not)
+void	reverse_rotate(t_stack **stack_a, t_stack **stack_b, char *ra_rb_rr,
+		int print_or_not)
 {
 	t_stack	*temp;
 	t_stack	*first;

@@ -6,11 +6,25 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:18:23 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 22:34:42 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:18:48 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	distance_to_head(t_stack *stack, int index_nbr)
+{
+	int	index_last;
+
+	if (index_nbr <= 0)
+		return (0);
+	index_last = stack_size(stack) - 1;
+	if (index_nbr >= index_last)
+		return (1);
+	if (index_nbr < (float)index_last / 2 + 1)
+		return (-index_nbr);
+	return (index_last - index_nbr + 1);
+}
 
 static void	sort_two_or_less(t_stack **stack_a)
 {
@@ -28,7 +42,7 @@ static void	quick_sort_alt(t_stack **stack_a, t_stack **stack_b)
 {
 	int	stacka_size;
 	int	final_index_max;
-	
+
 	stacka_size = stack_size(*stack_a);
 	final_index_max = stack_size(*stack_a) - 1;
 	while (stacka_size && (*stack_a)->next->next->next != NULL)
@@ -59,7 +73,7 @@ static void	sort_three_element(t_stack **stack_a)
 		reverse_rotate(stack_a, stack_a, "rra\n", 1);
 	if ((*stack_a)->next->number < (*stack_a)->next->next->number
 		&& (*stack_a)->next->next->number < (*stack_a)->number)
- 		rotate(stack_a, stack_a, "ra\n", 1);
+		rotate(stack_a, stack_a, "ra\n", 1);
 	if ((*stack_a)->next->next->number < (*stack_a)->next->number
 		&& (*stack_a)->next->number < (*stack_a)->number)
 	{

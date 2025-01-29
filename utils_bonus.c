@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:08:04 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 23:29:12 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:49:35 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,11 @@ void	read_and_file_rules(t_stack **stack_a, t_list **rules)
 
 static void	bad_format(char *str, t_stack **stack_a, t_list **rules)
 {
-	if (ft_strncmp(str, "sa\n", 4) != 0
-		&& ft_strncmp(str, "sb\n", 4) != 0
-		&& ft_strncmp(str, "ss\n", 4) != 0
-		&& ft_strncmp(str, "pa\n", 4) != 0
-		&& ft_strncmp(str, "pb\n", 4) != 0
-		&& ft_strncmp(str, "rb\n", 4) != 0
-		&& ft_strncmp(str, "ra\n", 4) != 0
-		&& ft_strncmp(str, "rr\n", 4) != 0
-		&& ft_strncmp(str, "rra\n", 5) != 0
-		&& ft_strncmp(str, "rrb\n", 5) != 0
+	if (ft_strncmp(str, "sa\n", 4) != 0 && ft_strncmp(str, "sb\n", 4) != 0
+		&& ft_strncmp(str, "ss\n", 4) != 0 && ft_strncmp(str, "pa\n", 4) != 0
+		&& ft_strncmp(str, "pb\n", 4) != 0 && ft_strncmp(str, "rb\n", 4) != 0
+		&& ft_strncmp(str, "ra\n", 4) != 0 && ft_strncmp(str, "rr\n", 4) != 0
+		&& ft_strncmp(str, "rra\n", 5) != 0 && ft_strncmp(str, "rrb\n", 5) != 0
 		&& ft_strncmp(str, "rrr\n", 5) != 0)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -94,9 +89,8 @@ void	check_format_rules(t_stack **stack_a, t_stack **stack_b, t_list **rules)
 	}
 }
 
-void	is_sorted(t_stack *stack_a, t_stack *stack_b)
+void	is_sorted_bonus(t_stack *stack_a, t_stack *stack_b)
 {
-
 	if (stack_b != NULL)
 	{
 		ft_putstr_fd("KO\n", 1);

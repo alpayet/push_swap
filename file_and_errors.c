@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:10:05 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/26 22:52:48 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/30 00:39:02 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,25 @@ static void	fill_manag_duplicates(int nbr, t_stack **stack_a)
 
 void	check_errors_and_file_a(char **argv, t_stack **stack_a)
 {
-	int	i;
+	int		i;
+	int		j;
 	long	str_to_long;
+	char	**tab;
 
 	i = 0;
 	while (argv[i])
 	{
-		str_to_long = ft_atol_alt(argv[i], stack_a);
-		if ((str_to_long < -2147483648 || str_to_long > 2147483647)
-			|| (str_to_long == -1 && argv[i][2] != '\0'))
-			process_errors(stack_a);
-		fill_manag_duplicates((int)str_to_long, stack_a);
+		tab = ft_split(argv[i], ' ');
+		j = 0;
+		while (tab[j])
+		{
+			str_to_long = ft_atol_alt(tab[j], stack_a);
+			if ((str_to_long < -2147483648 || str_to_long > 2147483647)
+				|| (str_to_long == -1 && tab[j][2] != '\0'))
+				process_errors(stack_a);
+			fill_manag_duplicates((int)str_to_long, stack_a);
+			j++;
+		}
 		i++;
 	}
 }
