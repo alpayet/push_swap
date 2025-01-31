@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:24:28 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/30 00:23:07 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/31 01:45:31 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,18 @@ void	execute_rules(t_stack **stack_a, t_stack **stack_b, int *rules_for_node)
 {
 	if (rules_for_node[3] == 1)
 	{
-		several_rr_or_rrr(stack_a, stack_b, rules_for_node[1]);
-		several_ra_or_revra(stack_a, rules_for_node[2]);
+		several_rr_or_rrr(stack_a, stack_b, rules_for_node[2]);
+		several_ra_or_revra(stack_a, rules_for_node[1]);
 	}
 	if (rules_for_node[3] == -1)
 	{
-		several_rr_or_rrr(stack_a, stack_b, rules_for_node[2]);
-		several_rb_or_revrb(stack_b, rules_for_node[1]);
+		several_rr_or_rrr(stack_a, stack_b, rules_for_node[1]);
+		several_rb_or_revrb(stack_b, rules_for_node[2]);
 	}
 	if (rules_for_node[3] == 0)
 	{
-		several_rb_or_revrb(stack_b, rules_for_node[1]);
-		several_ra_or_revra(stack_a, rules_for_node[2]);
+		several_ra_or_revra(stack_a, rules_for_node[1]);
+		several_rb_or_revrb(stack_b, rules_for_node[2]);
 	}
 	push(stack_a, stack_b, "pa\n", 1);
 }

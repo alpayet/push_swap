@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:18:23 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/30 00:18:48 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/31 01:32:26 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	quick_sort_alt(t_stack **stack_a, t_stack **stack_b)
 	int	final_index_max;
 
 	stacka_size = stack_size(*stack_a);
-	final_index_max = stack_size(*stack_a) - 1;
+	final_index_max = stacka_size - 1;
 	while (stacka_size && (*stack_a)->next->next->next != NULL)
 	{
 		if ((*stack_a)->final_index <= (float)final_index_max / 2)
@@ -84,16 +84,16 @@ static void	sort_three_element(t_stack **stack_a)
 
 void	turk_algorithm(t_stack **stack_a, t_stack **stack_b)
 {
-	int	min_or_max;
-	int	index;
-	int	dist;
+	int	min;
+	int	index_min;
+	int	dist_min;
 
 	sort_two_or_less(stack_a);
 	quick_sort_alt(stack_a, stack_b);
 	sort_three_element(stack_a);
 	push_back_to_a(stack_a, stack_b);
-	min_or_max = min_in_stack(*stack_a);
-	index = find_index(*stack_a, min_or_max);
-	dist = distance_to_head(*stack_a, index);
-	several_ra_or_revra(stack_a, dist);
+	min = min_in_stack(*stack_a);
+	index_min = find_index(*stack_a, min);
+	dist_min = distance_to_head(*stack_a, index_min);
+	several_ra_or_revra(stack_a, dist_min);
 }

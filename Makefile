@@ -9,30 +9,34 @@ NAME_BONUS = checker
 INC = push_swap.h
 INC_BONUS = push_swap_bonus.h
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -MMD -MP
 LFLAGS = -L$(LIBFT_DIR) -lft
 LFLAGS_BONUS = -L$(LIBFT_DIR) -lft -L$(LIBFT_DIR)/get_next_line -lftget_next_line
 MAKE = @make --no-print-directory -j
+DEPS = $(OBJ:.o=.d) $(OBJ_BONUS:.o=.d)
+
 
 all : lib_libft $(NAME)
 
 bonus : lib_libft $(NAME_BONUS)
 
-$(NAME) : $(OBJ) $(INC) $(LIBFT_DIR)/libft.a
+$(NAME) : $(OBJ) $(LIBFT_DIR)/libft.a
 	$(CC) -o $@ $(OBJ) $(LFLAGS)
 
-$(NAME_BONUS) : $(OBJ_BONUS) $(INC_BONUS) $(LIBFT_DIR)/libft.a
+$(NAME_BONUS) : $(OBJ_BONUS) $(LIBFT_DIR)/libft.a
 	$(CC) -o $(NAME_BONUS) $(OBJ_BONUS) $(LFLAGS_BONUS)
 
-%.o : %.c  Makefile
+%.o : %.c Makefile
 	$(CC) $(CFLAGS) -o $@ -c $<
+
+-include $(DEPS)
 
 lib_libft :
 	$(MAKE) -C $(LIBFT_DIR)
 
 clean :
 	$(MAKE) -C $(LIBFT_DIR)
-	rm -f *.o
+	rm -f *.o $(DEPS)
 
 fclean : clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
