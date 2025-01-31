@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:10:05 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/31 20:53:09 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/31 23:32:36 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	process_errors(t_stack **stack_a, char **tab, int j)
 {
-	int	i;
-
 	ft_putstr_fd("Error\n", 2);
-	i = 0;
-	while (tab[j])
+	if (j != -1)
 	{
-		free(tab[j]);
-		j++;
+		while (tab[j])
+		{
+			free(tab[j]);
+			j++;
+		}
+		free(tab);
 	}
-	free(tab);
 	stack_clear(stack_a);
 	exit(1);
 }
@@ -84,7 +84,7 @@ void	check_errors_and_file_a(char **argv, t_stack **stack_a)
 	{
 		tab = ft_split(argv[i], ' ');
 		if (!tab)
-			process_errors(stack_a, NULL, -1);
+			process_errors(stack_a, tab, -1);
 		j = 0;
 		while (tab[j])
 		{

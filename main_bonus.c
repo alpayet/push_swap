@@ -6,11 +6,30 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 22:18:05 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/31 20:52:28 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/02/01 00:14:53 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
+
+static void	is_sorted_bonus(t_stack *stack_a, t_stack *stack_b)
+{
+	if (stack_b != NULL)
+	{
+		ft_putstr_fd("KO\n", 1);
+		return ;
+	}
+	while (stack_a->next)
+	{
+		if (stack_a->number > stack_a->next->number)
+		{
+			ft_putstr_fd("KO\n", 1);
+			return ;
+		}
+		stack_a = stack_a->next;
+	}
+	ft_putstr_fd("OK\n", 1);
+}
 
 int	main(int argc, char **argv)
 {

@@ -6,11 +6,33 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:08:04 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/31 20:52:28 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/02/01 00:31:02 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
+
+static void	check_r_and_rr(t_stack **stack_a, t_stack **stack_b, char *str)
+{
+	if (ft_strncmp(str, "ra\n", 4) == 0 && *stack_a != NULL)
+		rotate(stack_a, stack_a, "ra\n", 0);
+	if (ft_strncmp(str, "rb\n", 4) == 0 && *stack_b != NULL)
+		rotate(stack_b, stack_b, "rb\n", 0);
+	if (ft_strncmp(str, "rr\n", 4) == 0 && *stack_a == NULL && *stack_b != NULL)
+		rotate(stack_b, stack_b, "rb\n", 0);
+	if (ft_strncmp(str, "rr\n", 4) == 0 && *stack_a != NULL && *stack_b == NULL)
+		rotate(stack_a, stack_a, "ra\n", 0);
+	if (ft_strncmp(str, "rra\n", 5) == 0 && *stack_a != NULL)
+		reverse_rotate(stack_a, stack_a, "rra\n", 0);
+	if (ft_strncmp(str, "rrb\n", 5) == 0 && *stack_b != NULL)
+		reverse_rotate(stack_b, stack_b, "rrb\n", 0);
+	if (ft_strncmp(str, "rrr\n", 5) == 0 && *stack_a == NULL
+		&& *stack_b != NULL)
+		reverse_rotate(stack_b, stack_b, "rrb\n", 0);
+	if (ft_strncmp(str, "rrr\n", 5) == 0 && *stack_a != NULL
+		&& *stack_b == NULL)
+		reverse_rotate(stack_a, stack_a, "rra\n", 0);
+}
 
 void	read_and_file_rules(t_stack **stack_a, t_list **rules)
 {
@@ -60,18 +82,7 @@ static void	do_rules(t_stack **stack_a, t_stack **stack_b, char *str)
 		push(stack_a, stack_b, "pa\n", 0);
 	if (ft_strncmp(str, "pb\n", 4) == 0)
 		push(stack_a, stack_b, "pb\n", 0);
-	if (ft_strncmp(str, "ra\n", 4) == 0)
-		rotate(stack_a, stack_a, "ra\n", 0);
-	if (ft_strncmp(str, "rb\n", 4) == 0)
-		rotate(stack_b, stack_b, "rb\n", 0);
-	if (ft_strncmp(str, "rr\n", 4) == 0)
-		rotate(stack_a, stack_b, "rr\n", 0);
-	if (ft_strncmp(str, "rra\n", 5) == 0)
-		reverse_rotate(stack_a, stack_a, "rra\n", 0);
-	if (ft_strncmp(str, "rrb\n", 5) == 0)
-		reverse_rotate(stack_b, stack_b, "rrb\n", 0);
-	if (ft_strncmp(str, "rrr\n", 5) == 0)
-		reverse_rotate(stack_a, stack_b, "rrr\n", 0);
+	check_r_and_rr(stack_a, stack_b, str);
 }
 
 void	check_format_rules(t_stack **stack_a, t_stack **stack_b, t_list **rules)
@@ -87,23 +98,4 @@ void	check_format_rules(t_stack **stack_a, t_stack **stack_b, t_list **rules)
 		do_rules(stack_a, stack_b, str);
 		temp = temp->next;
 	}
-}
-
-void	is_sorted_bonus(t_stack *stack_a, t_stack *stack_b)
-{
-	if (stack_b != NULL)
-	{
-		ft_putstr_fd("KO\n", 1);
-		return ;
-	}
-	while (stack_a->next)
-	{
-		if (stack_a->number > stack_a->next->number)
-		{
-			ft_putstr_fd("KO\n", 1);
-			return ;
-		}
-		stack_a = stack_a->next;
-	}
-	ft_putstr_fd("OK\n", 1);
 }

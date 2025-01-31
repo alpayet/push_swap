@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 22:23:26 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/30 00:54:56 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/02/01 00:14:57 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,5 @@
 void	read_and_file_rules(t_stack **stack_a, t_list **rules);
 void	check_format_rules(t_stack **stack_a, t_stack **stack_b,
 			t_list **rules);
-void	is_sorted_bonus(t_stack *stack_a, t_stack *stack_b);
 
 #endif
