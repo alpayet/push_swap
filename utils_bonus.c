@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 22:08:04 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/30 00:49:35 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/31 20:52:28 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	read_and_file_rules(t_stack **stack_a, t_list **rules)
 		if (new_node == NULL)
 		{
 			ft_lstclear(rules, free);
-			lstclear_alt(stack_a);
+			stack_clear(stack_a);
 		}
 		ft_lstadd_back(rules, new_node);
 	}
@@ -43,7 +43,7 @@ static void	bad_format(char *str, t_stack **stack_a, t_list **rules)
 	{
 		ft_putstr_fd("Error\n", 2);
 		ft_lstclear(rules, free);
-		lstclear_alt(stack_a);
+		stack_clear(stack_a);
 		exit(1);
 	}
 }

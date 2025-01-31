@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 19:48:30 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/30 00:23:32 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/31 20:53:09 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ typedef struct s_data
 	int				dist_after_rules;
 }					t_data;
 
-t_stack				*lstnew_alt(int number);
-t_stack				*lstlast_alt(t_stack *lst);
-void				lstclear_alt(t_stack **lst);
-void				lstadd_front_alt(t_stack **lst, t_stack *new);
-void				lstadd_back_alt(t_stack **lst, t_stack *new);
+t_stack				*stack_new(int number);
+t_stack				*stack_last(t_stack *lst);
+void				stack_clear(t_stack **lst);
+void				stack_addfront(t_stack **lst, t_stack *new);
+void				stack_addback(t_stack **lst, t_stack *new);
 void				swap(t_stack **stack_a, t_stack **stack_b, char *sa_sb,
 						int print_or_not);
 void				push(t_stack **stack_a, t_stack **stack_b, char *pa_pb,

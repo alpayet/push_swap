@@ -4,6 +4,7 @@ SRC = main.c stack_fonctions.c execute_rules.c file_and_errors.c math_utils.c ru
 SRC_BONUS = main_bonus.c rules.c stack_fonctions.c file_and_errors.c utils_bonus.c
 OBJ = $(SRC:.c=.o)
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
+DEPS = $(OBJ:.o=.d) $(OBJ_BONUS:.o=.d)
 NAME = push_swap
 NAME_BONUS = checker
 INC = push_swap.h
@@ -13,7 +14,6 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP
 LFLAGS = -L$(LIBFT_DIR) -lft
 LFLAGS_BONUS = -L$(LIBFT_DIR) -lft -L$(LIBFT_DIR)/get_next_line -lftget_next_line
 MAKE = @make --no-print-directory -j
-DEPS = $(OBJ:.o=.d) $(OBJ_BONUS:.o=.d)
 
 
 all : lib_libft $(NAME)
@@ -40,7 +40,7 @@ clean :
 
 fclean : clean
 	$(MAKE) fclean -C $(LIBFT_DIR)
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME_BONUS)
 
 re : fclean all
 

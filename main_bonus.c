@@ -6,7 +6,7 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 22:18:05 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/30 00:49:47 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/31 20:52:28 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int	main(int argc, char **argv)
 	check_format_rules(&stack_a, &stack_b, &rules);
 	is_sorted_bonus(stack_a, stack_b);
 	ft_lstclear(&rules, free);
-	lstclear_alt(&stack_a);
-	lstclear_alt(&stack_b);
+	stack_clear(&stack_a);
+	stack_clear(&stack_b);
 }

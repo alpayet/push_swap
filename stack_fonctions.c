@@ -6,13 +6,13 @@
 /*   By: alpayet <alpayet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 19:24:09 by alpayet           #+#    #+#             */
-/*   Updated: 2025/01/30 00:18:58 by alpayet          ###   ########.fr       */
+/*   Updated: 2025/01/31 20:53:09 by alpayet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*lstnew_alt(int number)
+t_stack	*stack_new(int number)
 {
 	t_stack	*new;
 
@@ -24,7 +24,7 @@ t_stack	*lstnew_alt(int number)
 	return (new);
 }
 
-t_stack	*lstlast_alt(t_stack *lst)
+t_stack	*stack_last(t_stack *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -33,7 +33,7 @@ t_stack	*lstlast_alt(t_stack *lst)
 	return (lst);
 }
 
-void	lstclear_alt(t_stack **lst)
+void	stack_clear(t_stack **lst)
 {
 	t_stack	*next_alt;
 
@@ -47,7 +47,7 @@ void	lstclear_alt(t_stack **lst)
 	}
 }
 
-void	lstadd_front_alt(t_stack **lst, t_stack *new)
+void	stack_addfront(t_stack **lst, t_stack *new)
 {
 	if (new == NULL || lst == NULL)
 		return ;
@@ -55,7 +55,7 @@ void	lstadd_front_alt(t_stack **lst, t_stack *new)
 	*lst = new;
 }
 
-void	lstadd_back_alt(t_stack **lst, t_stack *new)
+void	stack_addback(t_stack **lst, t_stack *new)
 {
 	if (new == NULL || lst == NULL)
 		return ;
@@ -64,5 +64,5 @@ void	lstadd_back_alt(t_stack **lst, t_stack *new)
 		*lst = new;
 		return ;
 	}
-	lstlast_alt(*lst)->next = new;
+	stack_last(*lst)->next = new;
 }
